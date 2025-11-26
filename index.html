@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Aplikasi Apotek</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <h1>🏥 Apotek App</h1>
+                <p>Sistem Manajemen Apotek</p>
+            </div>
+
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        placeholder="admin@apotek.com" 
+                        required
+                        autocomplete="email">
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        placeholder="Masukkan password" 
+                        required
+                        autocomplete="current-password">
+                </div>
+
+                <div id="errorMessage" class="error-message"></div>
+
+                <button type="submit" id="loginBtn" class="btn-login">
+                    Masuk
+                </button>
+            </form>
+
+            <div class="login-footer">
+                <p>Hanya untuk petugas apotek yang berwenang</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import JavaScript sebagai module -->
+    <script type="module" src="login.js"></script>
+</body>
+</html>

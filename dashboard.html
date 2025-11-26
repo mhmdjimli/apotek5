@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Apotek App</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-brand">
+            <h2>🏥 Apotek App</h2>
+        </div>
+        <div class="nav-user">
+            <span id="userName">Admin</span>
+            <button id="logoutBtn" class="btn-logout">Keluar</button>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="menu-item active" data-page="home">
+                <span class="icon">🏠</span>
+                <span>Dashboard</span>
+            </div>
+            <div class="menu-item" data-page="obat">
+                <span class="icon">💊</span>
+                <span>Data Obat</span>
+            </div>
+            <div class="menu-item" data-page="transaksi">
+                <span class="icon">🛒</span>
+                <span>Transaksi</span>
+            </div>
+            <div class="menu-item" data-page="laporan">
+                <span class="icon">📊</span>
+                <span>Laporan</span>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Home Page -->
+            <div id="homePage" class="page active">
+                <h1>Dashboard</h1>
+                
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card blue">
+                        <div class="stat-icon">💊</div>
+                        <div class="stat-info">
+                            <h3 id="totalObat">0</h3>
+                            <p>Total Obat</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card green">
+                        <div class="stat-icon">📦</div>
+                        <div class="stat-info">
+                            <h3 id="stokAman">0</h3>
+                            <p>Stok Aman</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card orange">
+                        <div class="stat-icon">⚠️</div>
+                        <div class="stat-info">
+                            <h3 id="stokMenipis">0</h3>
+                            <p>Stok Menipis</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card red">
+                        <div class="stat-icon">❌</div>
+                        <div class="stat-info">
+                            <h3 id="stokHabis">0</h3>
+                            <p>Stok Habis</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <h2>Aksi Cepat</h2>
+                    <div class="action-buttons">
+                        <button class="action-btn" onclick="goToPage('obat')">
+                            <span class="icon">➕</span>
+                            Tambah Obat
+                        </button>
+                        <button class="action-btn" onclick="goToPage('transaksi')">
+                            <span class="icon">🛒</span>
+                            Transaksi Baru
+                        </button>
+                        <button class="action-btn" onclick="goToPage('laporan')">
+                            <span class="icon">📊</span>
+                            Lihat Laporan
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Obat Page -->
+            <div id="obatPage" class="page">
+                <div class="page-header">
+                    <h1>Data Obat</h1>
+                    <button class="btn-primary" onclick="showAddForm()">➕ Tambah Obat</button>
+                </div>
+
+                <!-- Form Tambah/Edit Obat -->
+                <div id="formObat" class="form-container" style="display: none;">
+                    <div class="form-card">
+                        <h2 id="formTitle">Tambah Obat Baru</h2>
+                        <form id="obatForm">
+                            <input type="hidden" id="obatId">
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Kode Obat *</label>
+                                    <input type="text" id="kodeObat" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nama Obat *</label>
+                                    <input type="text" id="namaObat" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Kategori *</label>
+                                    <select id="kategori" required>
+                                        <option value="">Pilih Kategori</option>
+                                        <option value="Tablet">Tablet</option>
+                                        <option value="Kapsul">Kapsul</option>
+                                        <option value="Sirup">Sirup</option>
+                                        <option value="Salep">Salep</option>
+                                        <option value="Injeksi">Injeksi</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Satuan *</label>
+                                    <input type="text" id="satuan" placeholder="Box, Strip, Botol" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Harga Beli (Rp) *</label>
+                                    <input type="number" id="hargaBeli" min="0" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Harga Jual (Rp) *</label>
+                                    <input type="number" id="hargaJual" min="0" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Stok *</label>
+                                    <input type="number" id="stok" min="0" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Tanggal Expired</label>
+                                    <input type="date" id="tglExpired">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Keterangan</label>
+                                <textarea id="keterangan" rows="3"></textarea>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" class="btn-secondary" onclick="hideForm()">Batal</button>
+                                <button type="submit" class="btn-primary">Simpan</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Tabel Daftar Obat -->
+                <div class="table-container">
+                    <div class="search-box">
+                        <input type="text" id="searchObat" placeholder="🔍 Cari obat...">
+                    </div>
+
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Kode</th>
+                                    <th>Nama Obat</th>
+                                    <th>Kategori</th>
+                                    <th>Stok</th>
+                                    <th>Harga Jual</th>
+                                    <th>Expired</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="obatTableBody">
+                                <tr>
+                                    <td colspan="7" style="text-align: center;">Memuat data...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transaksi Page -->
+            <div id="transaksiPage" class="page">
+                <h1>Transaksi Penjualan</h1>
+                
+                <div class="transaksi-container">
+                    <!-- Form Transaksi -->
+                    <div class="transaksi-form">
+                        <div class="form-card">
+                            <h3>Input Transaksi</h3>
+                            
+                            <div class="form-group">
+                                <label>No. Transaksi</label>
+                                <input type="text" id="noTransaksi" readonly>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Cari Obat *</label>
+                                <input type="text" id="searchObatTransaksi" placeholder="Ketik nama obat..." autocomplete="off">
+                                <div id="obatSuggestions" class="suggestions"></div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Jumlah *</label>
+                                    <input type="number" id="jumlahObat" min="1" value="1">
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn-primary" onclick="addToCart()" style="margin-top: 28px; width: 100%;">➕ Tambah</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Keranjang Belanja -->
+                    <div class="cart-section">
+                        <div class="form-card">
+                            <h3>Keranjang Belanja</h3>
+                            
+                            <div class="cart-items" id="cartItems">
+                                <p style="text-align: center; color: #999;">Keranjang masih kosong</p>
+                            </div>
+
+                            <div class="cart-summary">
+                                <div class="summary-row">
+                                    <span>Total:</span>
+                                    <strong id="totalBelanja">Rp 0</strong>
+                                </div>
+                                <div class="form-group">
+                                    <label>Bayar (Rp)</label>
+                                    <input type="number" id="bayar" min="0" placeholder="0">
+                                </div>
+                                <div class="summary-row kembalian">
+                                    <span>Kembalian:</span>
+                                    <strong id="kembalian">Rp 0</strong>
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn-primary btn-proses" onclick="prosesTransaksi()">
+                                💰 Proses Transaksi
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Laporan Page -->
+            <div id="laporanPage" class="page">
+                <h1>Laporan</h1>
+                
+                <!-- Tab Menu -->
+                <div class="tab-menu">
+                    <button class="tab-btn active" onclick="showLaporan('stok')">📦 Stok Obat</button>
+                    <button class="tab-btn" onclick="showLaporan('menipis')">⚠️ Stok Menipis</button>
+                    <button class="tab-btn" onclick="showLaporan('penjualan')">💰 Penjualan</button>
+                </div>
+
+                <!-- Laporan Stok Obat -->
+                <div id="laporanStok" class="laporan-content active">
+                    <div class="laporan-header">
+                        <h3>Laporan Stok Obat</h3>
+                        <button class="btn-primary" onclick="printLaporan('stok')">🖨️ Cetak</button>
+                    </div>
+                    
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Kode Obat</th>
+                                    <th>Nama Obat</th>
+                                    <th>Kategori</th>
+                                    <th>Stok</th>
+                                    <th>Harga Jual</th>
+                                    <th>Total Nilai</th>
+                                </tr>
+                            </thead>
+                            <tbody id="stokTableBody">
+                                <tr><td colspan="7" style="text-align: center;">Memuat data...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="laporan-summary">
+                        <div class="summary-card">
+                            <h4>Total Item Obat</h4>
+                            <p id="totalItemStok">0</p>
+                        </div>
+                        <div class="summary-card">
+                            <h4>Total Nilai Stok</h4>
+                            <p id="totalNilaiStok">Rp 0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Laporan Stok Menipis -->
+                <div id="laporanMenipis" class="laporan-content">
+                    <div class="laporan-header">
+                        <h3>Laporan Stok Menipis (≤10)</h3>
+                        <button class="btn-primary" onclick="printLaporan('menipis')">🖨️ Cetak</button>
+                    </div>
+                    
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Kode Obat</th>
+                                    <th>Nama Obat</th>
+                                    <th>Kategori</th>
+                                    <th>Stok</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="menipisTableBody">
+                                <tr><td colspan="6" style="text-align: center;">Memuat data...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Laporan Penjualan -->
+                <div id="laporanPenjualan" class="laporan-content">
+                    <div class="laporan-header">
+                        <h3>Laporan Penjualan</h3>
+                        <div class="filter-date">
+                            <input type="date" id="tanggalMulai">
+                            <span>s/d</span>
+                            <input type="date" id="tanggalAkhir">
+                            <button class="btn-primary" onclick="filterPenjualan()">Filter</button>
+                        </div>
+                    </div>
+                    
+                    <div class="table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>No. Transaksi</th>
+                                    <th>Tanggal</th>
+                                    <th>Total</th>
+                                    <th>Bayar</th>
+                                    <th>Kembalian</th>
+                                    <th>Petugas</th>
+                                </tr>
+                            </thead>
+                            <tbody id="penjualanTableBody">
+                                <tr><td colspan="7" style="text-align: center;">Memuat data...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="laporan-summary">
+                        <div class="summary-card">
+                            <h4>Total Transaksi</h4>
+                            <p id="totalTransaksi">0</p>
+                        </div>
+                        <div class="summary-card">
+                            <h4>Total Penjualan</h4>
+                            <p id="totalPenjualan">Rp 0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="dashboard.js"></script>
+</body>
+</html>
